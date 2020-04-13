@@ -504,6 +504,21 @@ spec:
     port: 50051
     targetPort: 50051
 ---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: redis-data
+  labels:
+    app: redis-server
+  annotations:
+    volume.beta.kubernetes.io/storage-class: wcp-storage-policy
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -534,7 +549,8 @@ spec:
             memory: 200Mi
       volumes:
       - name: redis-data
-        emptyDir: {}
+        persistentVolumeClaim:
+          claimName: redis-data
 ---
 apiVersion: v1
 kind: Service
