@@ -1,15 +1,15 @@
 apiVersion: run.tanzu.vmware.com/v1alpha1
 kind: TanzuKubernetesCluster
 metadata:
-  name: cluster-prod
+  name: cluster-test
 spec:
   topology:
     controlPlane:
-      count: 1
+      count: 3
       class: guaranteed-xsmall # vmclass to be used for master(s)
       storageClass: wcp-storage-policy
     workers:
-      count: 2
+      count: 5
       class: guaranteed-xsmall # vmclass to be used for workers(s)
       storageClass: wcp-storage-policy
   distribution:
@@ -19,6 +19,6 @@ spec:
       cni:
         name: calico
       services:
-        cidrBlocks: ["10.151.4.0/22"]
+        cidrBlocks: ["10.155.4.0/22"]
       pods:
-        cidrBlocks: ["10.51.16.0/20"]
+        cidrBlocks: ["10.55.16.0/20"]
